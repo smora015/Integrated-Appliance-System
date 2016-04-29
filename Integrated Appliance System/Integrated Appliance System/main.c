@@ -16,20 +16,25 @@
 
 // IAS macro and pinout definitions
 #include "ias_pinout.h"
-//#include "display/lumex_lcd.h"
+#include "display/lumex_lcd.h"
+#include "com/shift_reg.h"
 
 int main(void) 
 {
-
-    //LCD_init();
+	DDRA = 0xFF; PORTA = 0x00; // Nokia LCD: 0-4. DHT22: 5. DS18B20: 6.
+	DDRB = 0xFF; PORTB = 0x00; // 16x2 LCD on Shift Registers
+	DDRC = 0xF0; PORTC = 0x0F; // Keypad
+	DDRD = 0xFF; PORTD = 0x00; // USART interface
+	
+    LCD_init();
 
 	for(;;)
 	{
-		//LCD_DisplayString(0, (const unsigned char*) "Hello World!", 1);
+		LCD_DisplayString(3, (const unsigned char*) "Hello World!", 0);
         
-        _delay_ms(1000);       // Delay logic for 100 ms
+        //_delay_ms(1000);       // Delay logic for 100 ms
 		
-		PORTD ^= 0xFF; // UI PORTD bits
+		//PORTD ^= 0xFF; // UI PORTD bits
 			
 	}
 		
